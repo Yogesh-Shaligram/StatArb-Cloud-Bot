@@ -177,8 +177,14 @@ row, col = 1, 1
 state_changed = False
 
 for asset1, asset2 in pairs:
+    # --- CACHE SAFETY NET ---
+    if (asset1, asset2) not in calibrated_pairs:
+        st.warning(f"⏳ Cache lag detected on {asset1}/{asset2}. Waiting for reboot...")
+        continue
+
     ratio = calibrated_pairs[(asset1, asset2)]
     spread_series = live_data[asset1] - (ratio * live_data[asset2])
+
     sma_series = spread_series.rolling(window=20).mean()
     std_series = spread_series.rolling(window=20).std().replace(0, np.nan)
     z_score_series = ((spread_series - sma_series) / std_series).dropna()
