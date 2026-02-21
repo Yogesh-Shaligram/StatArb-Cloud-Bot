@@ -35,7 +35,7 @@ def get_gspread_client():
 
 
 # REPLACE WITH YOUR ACTUAL SHEET ID
-SHEET_ID = "YOUR_SPREADSHEET_ID_HERE"
+SHEET_ID = "1Xlf5f1cH0jYSnDweXQmj7tuuuKrPRkA9xlZm4wl8ZWs"
 client = get_gspread_client()
 sheet = client.open_by_key(SHEET_ID)
 
