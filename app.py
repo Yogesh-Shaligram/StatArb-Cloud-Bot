@@ -22,7 +22,10 @@ st.set_page_config(page_title="Cloud StatArb Bot", layout="wide", page_icon="☁
 # 1. GOOGLE SHEETS CLOUD STORAGE LOGIC
 # ---------------------------------------------------------
 # Define the Google Sheets Scope and Authenticate via Streamlit Secrets
-scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+scopes = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
 
 
 @st.cache_resource
