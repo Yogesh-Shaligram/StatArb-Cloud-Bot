@@ -58,7 +58,7 @@ def load_cloud_state():
         else:
             raise ValueError("Empty cell")
     except Exception:
-        st.session_state.crypto_portfolio = 1000000.0  # $1,000,000 USD
+        st.session_state.crypto_portfolio = 1000.0  # $1,000,000 USD
         st.session_state.crypto_states = {}
 
     try:
