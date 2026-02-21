@@ -27,13 +27,13 @@ scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 
 @st.cache_resource
 def get_gspread_client():
-    # 1. Pull the secrets into a standard Python dictionary
-    creds_dict = dict(st.secrets["gcp_service_account"])
+    # 1. Pull the raw JSON string from Streamlit's secure vault
+    raw_json = st.secrets["google_credentials_json"]
 
-    # 2. THE MAGIC FIX: Force Python to read \n as actual structural newlines
-    creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
+    # 2. Parse it safely into a perfect Python dictionary (bypassing TOML issues)
+    creds_dict = json.loads(raw_json)
 
-    # 3. Authenticate with the corrected key
+    # 3. Authenticate with Google
     creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
     return gspread.authorize(creds)
 
