@@ -86,9 +86,9 @@ def append_to_cloud_ledger(trade_dict):
 # ---------------------------------------------------------
 pairs = [
     ('BTC-USD', 'ETH-USD'),    ('SOL-USD', 'AVAX-USD'),
-    ('UNI-USD', 'AAVE-USD'),   ('DOGE-USD', 'SHIB-USD'),
+    ('LINK-USD', 'AAVE-USD'),  ('DOGE-USD', 'SHIB-USD'),  # Combined LINK and AAVE
     ('ADA-USD', 'DOT-USD'),    ('LTC-USD', 'BCH-USD'),
-    ('LINK-USD', 'UNI-USD'),   ('XRP-USD', 'XLM-USD')     # <--- The fix
+    ('HBAR-USD', 'ALGO-USD'),  ('XRP-USD', 'XLM-USD')     # Added HBAR vs ALGO
 ]
 
 all_tickers = list(set([ticker for pair in pairs for ticker in pair]))
@@ -297,7 +297,7 @@ if state_changed:
     save_cloud_state()
 
 fig.update_layout(height=500, margin=dict(l=20, r=20, t=40, b=20), plot_bgcolor='rgba(240,240,240,0.5)')
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width='stretch')
 
 if alerts:
     for alert in alerts:
