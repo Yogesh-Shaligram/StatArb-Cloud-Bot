@@ -27,8 +27,13 @@ scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 
 @st.cache_resource
 def get_gspread_client():
-    # Streamlit Cloud securely injects your Google Credentials from the Secrets manager
-    creds_dict = st.secrets["gcp_service_account"]
+    # 1. Pull the secrets into a standard Python dictionary
+    creds_dict = dict(st.secrets["gcp_service_account"])
+
+    # 2. THE MAGIC FIX: Force Python to read \n as actual structural newlines
+    creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
+
+    # 3. Authenticate with the corrected key
     creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
     return gspread.authorize(creds)
 
