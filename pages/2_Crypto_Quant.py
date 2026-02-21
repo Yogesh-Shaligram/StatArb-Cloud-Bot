@@ -250,6 +250,8 @@ def main():
                                                                 {'position': 0, 'units_1': 0.0, 'entry_p1': 0.0,
                                                                  'units_2': 0.0, 'entry_p2': 0.0})
                 short_name1, short_name2 = asset1.replace('-USD', ''), asset2.replace('-USD', '')
+                print(
+                    f"[{timestamp}] 🔎 SCAN: {short_name1}/{short_name2} | Z: {current_z:.2f} | {short_name1}: {format_usd(live_p1)} | {short_name2}: {format_usd(live_p2)}")
 
                 if pair_state['position'] == 0:
                     if current_z < -ENTRY_Z:
