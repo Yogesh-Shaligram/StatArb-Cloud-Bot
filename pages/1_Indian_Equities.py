@@ -16,8 +16,8 @@ from google.oauth2.service_account import Credentials
 warnings.filterwarnings("ignore")
 
 # --- PAGE CONFIGURATION ---
-st.set_page_config(page_title="Cloud StatArb Bot", layout="wide", page_icon="☁️")
-
+# --- NEW CODE ---
+st.set_page_config(page_title="Indian Equities Bot", layout="wide")
 # ---------------------------------------------------------
 # 1. GOOGLE SHEETS CLOUD STORAGE LOGIC
 # ---------------------------------------------------------
@@ -46,8 +46,9 @@ SHEET_ID = "1Xlf5f1cH0jYSnDweXQmj7tuuuKrPRkA9xlZm4wl8ZWs"
 client = get_gspread_client()
 sheet = client.open_by_key(SHEET_ID)
 
-state_tab = sheet.worksheet("State")
-ledger_tab = sheet.worksheet("Ledger")
+# --- NEW CODE ---
+state_tab = sheet.worksheet("Equity_State")
+ledger_tab = sheet.worksheet("Equity_Ledger")
 
 
 def load_cloud_state():
