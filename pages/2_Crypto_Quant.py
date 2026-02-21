@@ -113,11 +113,22 @@ if 'crypto_portfolio' not in st.session_state:
 # ---------------------------------------------------------
 @st.cache_data
 def calibrate_pairs():
-    hist_data = yf.download(all_tickers, period="6mo", progress=False)['Close'].ffill().dropna()
+    # 1. Download the data, but DO NOT dropna() the whole table!
+    hist_data = yf.download(all_tickers, period="6mo", progress=False)['Close'].ffill()
     calibrated = {}
+
     for a1, a2 in pairs:
-        model = sm.OLS(hist_data[a1], hist_data[a2]).fit()
-        calibrated[(a1, a2)] = model.params.iloc[0]
+        # 2. Isolate just the two coins we need for this specific math
+        pair_data = hist_data[[a1, a2]].dropna()
+
+        # 3. Safety Catch: Ensure we actually have enough rows to run a regression
+        if len(pair_data) > 50:
+            model = sm.OLS(pair_data[a1], pair_data[a2]).fit()
+            calibrated[(a1, a2)] = model.params.iloc[0]
+        else:
+            # If Yahoo Finance data is broken/missing, fallback to 1.0 to prevent a crash
+            calibrated[(a1, a2)] = 1.0
+
     return calibrated
 
 
