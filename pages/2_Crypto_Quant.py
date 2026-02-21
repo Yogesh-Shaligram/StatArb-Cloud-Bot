@@ -49,7 +49,7 @@ def load_cloud_state():
         raw_data = state_tab.acell('A1').value
         if raw_data:
             state_data = json.loads(raw_data)
-            st.session_state.crypto_portfolio = state_data.get('portfolio', 1000000.0)
+            st.session_state.crypto_portfolio = state_data.get('portfolio', 1000.0)
             loaded_states = {}
             for k, v in state_data.get('states', {}).items():
                 a1, a2 = k.split('|')
