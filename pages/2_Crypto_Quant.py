@@ -85,10 +85,10 @@ def append_to_cloud_ledger(trade_dict):
 # 2. WATCHLIST & ADVANCED L/S CONSTANTS
 # ---------------------------------------------------------
 pairs = [
-    ('BTC-USD', 'ETH-USD'), ('SOL-USD', 'AVAX-USD'),
-    ('UNI-USD', 'AAVE-USD'), ('DOGE-USD', 'SHIB-USD'),
-    ('ADA-USD', 'DOT-USD'), ('LTC-USD', 'BCH-USD'),
-    ('LINK-USD', 'UNI-USD'), ('MATIC-USD', 'ARB-USD')
+    ('BTC-USD', 'ETH-USD'),    ('SOL-USD', 'AVAX-USD'),
+    ('UNI-USD', 'AAVE-USD'),   ('DOGE-USD', 'SHIB-USD'),
+    ('ADA-USD', 'DOT-USD'),    ('LTC-USD', 'BCH-USD'),
+    ('LINK-USD', 'UNI-USD'),   ('XRP-USD', 'XLM-USD')     # <--- The fix
 ]
 
 all_tickers = list(set([ticker for pair in pairs for ticker in pair]))
