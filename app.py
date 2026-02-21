@@ -134,6 +134,24 @@ ENTRY_Z = 1.75
 EXIT_Z = 0.0
 TRADE_ALLOCATION = 50000.0
 
+
+def format_inr(number):
+    """Safely formats floats into the Indian Lakh/Crore numbering system."""
+    num_str = f"{number:.2f}"
+    whole_part, _, decimal_part = num_str.partition(".")
+
+    if len(whole_part) > 3:
+        last_three = whole_part[-3:]
+        rest = whole_part[:-3]
+        # Group the remaining numbers into pairs of 2
+        pairs = [rest[max(0, i - 2):i] for i in range(len(rest), 0, -2)]
+        pairs.reverse()
+        formatted_whole = ",".join(pairs) + "," + last_three
+    else:
+        formatted_whole = whole_part
+
+    return f"₹{formatted_whole}.{decimal_part}"
+
 if 'portfolio' not in st.session_state:
     load_cloud_state()
     # Ensure states are mapped to the pairs list if it was an empty boot
@@ -173,7 +191,7 @@ st.title("☁️ Cloud Statistical Arbitrage Dashboard")
 st.caption(f"Last updated: {timestamp} IST | Synced with Google Sheets")
 
 col1, col2, col3 = st.columns(3)
-col1.metric("Cloud Capital", f"₹{st.session_state.portfolio:,.2f}")
+col1.metric("Cloud Capital", format_inr(st.session_state.portfolio))
 col2.metric("Active Pairs", sum(1 for state in st.session_state.states.values() if state['position'] != 0))
 col3.metric("Total Completed Trades", len([t for t in st.session_state.trade_log if t['Action'] == 'SELL']))
 
