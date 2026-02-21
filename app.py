@@ -42,9 +42,10 @@ def get_gspread_client():
 
 
 # Connect to your specific Google Sheet (Replace with your actual exact Sheet name later)
-SHEET_NAME = "StatArb_Trading_Database"
+SHEET_ID = "1Xlf5f1cH0jYSnDweXQmj7tuuuKrPRkA9xlZm4wl8ZWs"
 client = get_gspread_client()
-sheet = client.open(SHEET_NAME)
+sheet = client.open_by_key(SHEET_ID)
+
 state_tab = sheet.worksheet("State")
 ledger_tab = sheet.worksheet("Ledger")
 
