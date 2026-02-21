@@ -93,7 +93,7 @@ pairs = [
 
 all_tickers = list(set([ticker for pair in pairs for ticker in pair]))
 
-ENTRY_Z = 1.75
+ENTRY_Z = 1.15
 EXIT_Z = 0.0
 # We allocate $50k total per setup ($25k for the Long leg, $25k for the Short leg)
 LEG_ALLOCATION = 25000.0
